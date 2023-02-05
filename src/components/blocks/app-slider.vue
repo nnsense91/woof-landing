@@ -1,46 +1,43 @@
 <template>
-    <section class="slider">
+    <section class="woof">
         <div class="container">
             <div ref="swiper" class="swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">Slide 1</div>
-                    <div class="swiper-slide">Slide 2</div>
-                    <div class="swiper-slide">Slide 3</div>
-                    <div class="swiper-slide">Slide 4</div>
-                    <div class="swiper-slide">Slide 5</div>
-                    <div class="swiper-slide">Slide 6</div>
-                    <div class="swiper-slide">Slide 7</div>
-                    <div class="swiper-slide">Slide 8</div>
-                    <div class="swiper-slide">Slide 9</div>
-                </div>
+                <ul class="swiper-wrapper">
+                    <li class="swiper-slide" v-for="(woof, index) in woofs" :key="index">
+                        <AppWoof :woof-url="woof"/>
+                    </li>
+                </ul>
                 <div class="swiper-pagination"></div>
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
             </div>
         </div>
     </section>
-
 </template>
 
 <script lang="ts">
-import {Component, Ref, Vue} from "vue-property-decorator";
+import { Component, Prop, Ref, Vue } from "vue-property-decorator";
 import Swiper, { Pagination, Navigation } from 'swiper'
+import AppWoof from "@components/blocks/app-woof.vue";
 import 'swiper/css'
 import 'swiper/css/pagination'
+import { TWoof } from "../../models";
 
 @Component({
     components: {
         Swiper,
+        AppWoof
     },
 })
 export default class AppSlider extends Vue {
-    @Ref() readonly swiper!: HTMLDivElement
+    @Prop() readonly woofs!: TWoof[];
+    @Ref() readonly swiper!: HTMLDivElement;
 
     mounted() {
         new Swiper(this.swiper, {
             modules: [Pagination, Navigation],
+            spaceBetween: 37,
             slidesPerView: 3,
-            loop: true,
             pagination: {
                 el: '.swiper-pagination',
             },
@@ -54,10 +51,16 @@ export default class AppSlider extends Vue {
 </script>
 
 <style scoped lang="scss">
-.swiper-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 300px;
+section {
+    padding-top: 20px;
+}
+.swiper {
+    padding-bottom: 28px;
+    &-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 294px;
+    }
 }
 </style>

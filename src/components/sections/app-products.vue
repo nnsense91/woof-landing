@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { Prop, Component, Vue} from "vue-property-decorator";
-import {IProduct} from "../../api";
+import { TProduct } from "../../models";
 import AppProduct from "@components/blocks/app-product.vue";
 
 @Component({
@@ -21,7 +21,7 @@ import AppProduct from "@components/blocks/app-product.vue";
      }
 })
 export default class AppProducts extends Vue {
-    @Prop() readonly products!: IProduct[]
+    @Prop() readonly products!: TProduct[]
 }
 </script>
 

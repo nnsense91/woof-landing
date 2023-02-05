@@ -1,9 +1,9 @@
 <template>
     <div class="product">
         <div class="product__content">
-            <div class="product__picture">
+            <figure class="product__picture">
                 <img :src="product.thumbnail" alt="product-preview" />
-            </div>
+            </figure>
             <ul class="product__description">
                <li class="product__description-item">
                    <span class="product__description-key">Brand: </span>
@@ -13,7 +13,7 @@
                    <span class="product__description-key">Category: </span>
                    {{ product.category }}
                </li>
-               <li class="product__description-item">
+               <li class="product__description-item" :title="product.description">
                    <span class="product__description-key">Description: </span>
                    {{ product.description }}
                </li>
@@ -28,26 +28,25 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { IProduct } from "../../api";
+import { TProduct } from "../../models";
 
 @Component
 export default class AppProduct extends Vue {
-    @Prop() readonly product!: IProduct
+    @Prop() readonly product!: TProduct;
 }
 </script>
 
 <style scoped lang="scss">
 .product {
     &__picture {
-        height: 206px;
         width: 100%;
-        overflow: hidden;
+        height: 206px;
+        margin: 0;
 
         &> img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: 25%;
         }
     }
 

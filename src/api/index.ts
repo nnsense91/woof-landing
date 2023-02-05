@@ -1,23 +1,16 @@
+import { getWoofsFromCookies, saveWoofsToCookies } from "../helpers/cookies";
+import { TProduct, TWoof } from "../models";
+import { urlContainImage } from "../helpers/regexp";
+import {fetchData} from "../helpers/fetch";
+
 const API_PRODUCTS_URL = "https://dummyjson.com/products";
 const API_WOOF_URL = "https://random.dog/woof.json";
-const CONTAINS_IMAGE = /http.+\.(gif|jpg|png|jpeg)$/;
 
-export interface IProduct {
-  brand: string;
-  category: string;
-  description: string;
-  discountPercentage: number;
-  id: number;
-  price: number
-  rating: number;
-  stock: number;
-  thumbnail: string;
-  title: string;
-}
+
 
 interface IProductResponse {
   limit: number;
-  products: IProduct[];
+  products: TProduct[];
   skip: 0;
   total: number;
 }
@@ -27,42 +20,40 @@ interface IWoofResponse {
   url: string;
 }
 
-export const fetchProducts = async (productsCount?: number): Promise<IProduct[]> => {
+const fetchProducts = async (productsCount?: number): Promise<TProduct[]> => {
   const extraParams = productsCount ? `?limit=${productsCount}` : "";
   const url = API_PRODUCTS_URL + extraParams;
 
-  const response = await fetch(url, {
-    method: "GET"
-  });
-
-  const data = await response.json() as IProductResponse;
+  const data = await fetchData(url) as IProductResponse;
 
   return data.products;
 };
 
+const fetchWoof = async (): Promise<TWoof> => {
+  const data = await fetchData(API_WOOF_URL) as IWoofResponse;
 
-export const requestWoofs = async (count = 10): Promise<string[]> => {
+  return data.url;
+}
+
+
+const fetchWoofs = async (count = 10): Promise<string[]> => {
+  const arrFromCookies = getWoofsFromCookies();
+
+  if (arrFromCookies) return arrFromCookies;
+
   const woofsData: string[] = [];
 
   while (woofsData.length < count) {
     const woofUrl = await fetchWoof();
 
-    if (CONTAINS_IMAGE.test(woofUrl)) {
+    if (urlContainImage(woofUrl)) {
       woofsData.push(woofUrl);
     }
   }
 
-
+  saveWoofsToCookies(woofsData)
 
   return woofsData;
 }
 
-export const fetchWoof = async () => {
-
-  const response = await fetch(API_WOOF_URL, {
-    method: "GET"
-  });
-
-  const data = await response.json() as IWoofResponse;
-  return data.url;
-}
+export { fetchWoofs, fetchProducts }

@@ -1,8 +1,7 @@
 <template>
     <main class="main">
         <app-header />
-        <app-slider />
-        {{ woofs }}
+        <app-slider :woofs="woofs"/>
         <app-products :products="products" />
     </main>
 </template>
@@ -13,7 +12,8 @@ import { Vue, Component, Provide } from 'vue-property-decorator'
 import AppHeader from "@components/sections/app-header.vue";
 import AppProducts from "@components/sections/app-products.vue";
 import AppSlider from "@components/blocks/app-slider.vue";
-import {fetchProducts, requestWoofs, IProduct} from "./api";
+import { fetchProducts, fetchWoofs } from "./api";
+import { TProduct, TWoof } from "./models";
 
 @Component({
     components: {
@@ -24,18 +24,15 @@ import {fetchProducts, requestWoofs, IProduct} from "./api";
 })
 export default class App extends Vue {
     @Provide() getProductsFn = this.getProducts
-    products: IProduct[] = [];
-    woofs: string[] = []
+    products: TProduct[] = [];
+    woofs: TWoof[] = []
 
     async getProducts(): Promise<void> {
-        const data = await fetchProducts(100);
-
-        this.products = data;
+        this.products = await fetchProducts(100);
     }
 
     public async fetchWoof(): Promise<void> {
-       const data = await requestWoofs()
-        this.woofs = data;
+        this.woofs = await fetchWoofs();
     }
 
     created() {
