@@ -1,5 +1,5 @@
 <template>
-  <div class="test">Lets vue</div>
+  <div class="test">Let`s vue</div>
 </template>
 
 <script lang="ts">
