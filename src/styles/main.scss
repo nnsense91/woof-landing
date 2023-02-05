@@ -1,0 +1,40 @@
+@import "./colors.scss";
+@import "./media.scss";
+@import "./fonts.scss";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: $baseFontsize;
+  font-family: 'Inter', sans-serif;
+  color: $color-text;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+section {
+  width: 100%;
+}
+
+.container {
+  margin: 0 auto;
+  height: 100%;
+  width: 1400px;
+}
+
+.button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+li, ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
