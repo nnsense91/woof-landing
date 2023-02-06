@@ -1,0 +1,9 @@
+@mixin badge($color, $text) {
+  content: $text;
+  position: absolute;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  color: $color-primary-white;
+  background-color: $color;
+}

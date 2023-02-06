@@ -2,6 +2,7 @@ import { getWoofsFromCookies, saveWoofsToCookies } from "../helpers/cookies";
 import { TProduct, TWoof } from "../models";
 import { urlContainImage } from "../helpers/regexp";
 import {fetchData} from "../helpers/fetch";
+import { setProductsToLs } from "../helpers/localStorage";
 
 const API_PRODUCTS_URL = "https://dummyjson.com/products";
 const API_WOOF_URL = "https://random.dog/woof.json";
@@ -25,6 +26,7 @@ const fetchProducts = async (productsCount?: number): Promise<TProduct[]> => {
   const url = API_PRODUCTS_URL + extraParams;
 
   const data = await fetchData(url) as IProductResponse;
+  setProductsToLs(data.products)
 
   return data.products;
 };

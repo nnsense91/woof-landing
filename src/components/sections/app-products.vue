@@ -2,8 +2,13 @@
     <section class="products">
         <div class="container">
             <ul class="products__list">
-                <li v-for="product in products" :key="product.id" class="products__item">
-                    <app-product :product="product"/>
+                <li v-for="(product, index) in products" :key="product.id" class="products__item">
+                    <app-product
+                        :product="product"
+                        :top="index === 0"
+                        :sale="index === 1"
+                        :popular="index === 2"
+                    />
                 </li>
             </ul>
         </div>

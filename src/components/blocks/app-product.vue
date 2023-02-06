@@ -1,7 +1,7 @@
 <template>
     <div class="product">
         <div class="product__content">
-            <figure class="product__picture">
+            <figure class="product__picture" :class="{ top, sale, popular }">
                 <img :src="product.thumbnail" alt="product-preview" />
             </figure>
             <ul class="product__description">
@@ -34,6 +34,9 @@ import { getRandomTimer } from "../../helpers/randomTimer";
 @Component
 export default class AppProduct extends Vue {
     @Prop() readonly product!: TProduct;
+    @Prop() readonly top!: boolean;
+    @Prop() readonly sale!: boolean;
+    @Prop() readonly popular!: boolean;
 
     private stock: TProduct["stock"] | null = null;
     private interval: number | null = null;
@@ -82,6 +85,40 @@ export default class AppProduct extends Vue {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        &.top {
+            position: relative;
+
+            &::after {
+                top: 5%;
+                left: 5%;
+                @include badge($badge-top, "TOP");
+            }
+        }
+
+        &.sale {
+            position: relative;
+
+            &::after {
+                width: fit-content;
+                top: 5%;
+                left: 0;
+                right: 0;
+                margin-left: auto;
+                margin-right: auto;
+                @include badge($badge-sale, "TOP");
+            }
+        }
+
+        &.popular {
+            position: relative;
+
+            &::after {
+                bottom: 5%;
+                right: 5%;
+                @include badge($badge-popular, "POPULAR");
+            }
         }
     }
 

@@ -14,6 +14,7 @@ import AppProducts from "@components/sections/app-products.vue";
 import AppSlider from "@components/blocks/app-slider.vue";
 import { fetchProducts, fetchWoofs } from "./api";
 import { TProduct, TWoof } from "./models";
+import {getProductsFromLs} from "./helpers/localStorage";
 
 @Component({
     components: {
@@ -28,6 +29,13 @@ export default class App extends Vue {
     woofs: TWoof[] = []
 
     public async getProducts(): Promise<void> {
+        const productsFromLs = getProductsFromLs();
+
+        if (productsFromLs) {
+            this.products = productsFromLs;
+
+            return
+        }
         this.products = await fetchProducts(100);
     }
 
