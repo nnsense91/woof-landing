@@ -19,7 +19,7 @@
                </li>
                <li class="product__description-item">
                    <span class="product__description-key">In stock: </span>
-                   {{ product.stock }}
+                   {{ stock }}
                </li>
             </ul>
         </div>
@@ -27,12 +27,47 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import { TProduct } from "../../models";
+import { getRandomTimer } from "../../helpers/randomTimer";
 
 @Component
 export default class AppProduct extends Vue {
     @Prop() readonly product!: TProduct;
+
+    private stock: TProduct["stock"] | null = null;
+    private interval: number | null = null;
+
+    private decreaseStock() {
+        const updateInterval = getRandomTimer();
+
+        if (this.stock && this.stock > 0) {
+            this.interval = window.setInterval(() => {
+                this.stock = this.stock! - 1
+            }, updateInterval)
+        }
+    }
+
+    private clearTimer() {
+        if (this.interval) {
+            clearInterval(this.interval)
+        }
+    }
+
+    created() {
+        this.stock = this.product.stock
+    }
+    mounted() {
+        this.decreaseStock()
+    }
+    beforeDestroy() {
+        this.clearTimer()
+    }
+
+    @Watch("stock")
+    onStockChanged(prev: TProduct["stock"], next: TProduct["stock"]) {
+        if (next === 1 && this.interval) this.clearTimer()
+    }
 }
 </script>
 

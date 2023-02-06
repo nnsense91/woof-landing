@@ -27,7 +27,7 @@ export default class App extends Vue {
     products: TProduct[] = [];
     woofs: TWoof[] = []
 
-    async getProducts(): Promise<void> {
+    public async getProducts(): Promise<void> {
         this.products = await fetchProducts(100);
     }
 
@@ -35,7 +35,7 @@ export default class App extends Vue {
         this.woofs = await fetchWoofs();
     }
 
-    created() {
+    private created() {
         this.fetchWoof()
     }
 }
