@@ -1,5 +1,10 @@
 <template>
-    <button class="button update-products" @click="getProductsFn">Update Products</button>
+    <button
+        class="button update-products"
+        @click="getProductsFn"
+    >
+        Update Products
+    </button>
 </template>
 
 <script lang="ts">

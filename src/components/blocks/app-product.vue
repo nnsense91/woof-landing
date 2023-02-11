@@ -1,26 +1,35 @@
 <template>
     <div class="product">
         <div class="product__content">
-            <figure class="product__picture" :class="{ top, sale, popular }">
-                <img :src="product.thumbnail" alt="product-preview" />
+            <figure
+                class="product__picture"
+                :class="{ top, sale, popular }"
+            >
+                <img
+                    :src="product.thumbnail"
+                    alt="product-preview"
+                >
             </figure>
             <ul class="product__description">
-               <li class="product__description-item">
-                   <span class="product__description-key">Brand: </span>
-                   {{ product.brand }}
-               </li>
-               <li class="product__description-item">
-                   <span class="product__description-key">Category: </span>
-                   {{ product.category }}
-               </li>
-               <li class="product__description-item" :title="product.description">
+                <li class="product__description-item">
+                    <span class="product__description-key">Brand: </span>
+                    {{ product.brand }}
+                </li>
+                <li class="product__description-item">
+                    <span class="product__description-key">Category: </span>
+                    {{ product.category }}
+                </li>
+                <li
+                    class="product__description-item"
+                    :title="product.description"
+                >
                     <span class="product__description-key">Description: </span>
                     {{ product.description }}
-               </li>
-               <li class="product__description-item">
-                   <span class="product__description-key">In stock: </span>
-                   {{ stock }}
-               </li>
+                </li>
+                <li class="product__description-item">
+                    <span class="product__description-key">In stock: </span>
+                    {{ stock }}
+                </li>
             </ul>
         </div>
     </div>
@@ -61,9 +70,11 @@ export default class AppProduct extends Vue {
     created() {
         this.stock = this.product.stock
     }
+
     mounted() {
         this.decreaseStock()
     }
+
     beforeDestroy() {
         this.clearTimer()
     }

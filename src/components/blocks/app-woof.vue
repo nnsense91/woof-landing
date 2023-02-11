@@ -1,6 +1,11 @@
 <template>
     <figure class="woof">
-        <img class="woof__img" alt="doggy" :srcset="`${woofUrl} 480w`" sizes="(max-width: 1921px) 480px"/>
+        <img
+            class="woof__img"
+            alt="doggy"
+            :srcset="`${woofUrl} 480w`"
+            sizes="(max-width: 1921px) 480px"
+        >
     </figure>
 </template>
 

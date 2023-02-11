@@ -23,40 +23,40 @@ interface IWoofResponse {
 }
 
 const fetchProducts = async (productsCount?: number): Promise<TProduct[]> => {
-  const extraParams = productsCount ? `?limit=${productsCount}` : "";
-  const url = API_PRODUCTS_URL + extraParams;
+    const extraParams = productsCount ? `?limit=${productsCount}` : "";
+    const url = API_PRODUCTS_URL + extraParams;
 
-  const data = await fetchData(url) as IProductResponse;
-  setProductsToLs(data.products)
+    const data = await fetchData(url) as IProductResponse;
+    setProductsToLs(data.products)
 
-  return data.products;
+    return data.products;
 };
 
 const fetchWoof = async (): Promise<TWoof> => {
-  const data = await fetchData(API_WOOF_URL) as IWoofResponse;
+    const data = await fetchData(API_WOOF_URL) as IWoofResponse;
 
-  return data.url;
+    return data.url;
 }
 
 
 const fetchWoofs = async (count = DEFAULT_WOOF_SLIDES): Promise<TWoof[]> => {
-  const arrFromCookies = getWoofsFromCookies();
+    const arrFromCookies = getWoofsFromCookies();
 
-  if (arrFromCookies) return arrFromCookies;
+    if (arrFromCookies) return arrFromCookies;
 
-  const woofsData: string[] = [];
+    const woofsData: string[] = [];
 
-  while (woofsData.length < count) {
-    const woofUrl = await fetchWoof();
+    while (woofsData.length < count) {
+        const woofUrl = await fetchWoof();
 
-    if (urlContainImage(woofUrl)) {
-      woofsData.push(woofUrl);
+        if (urlContainImage(woofUrl)) {
+            woofsData.push(woofUrl);
+        }
     }
-  }
 
-  saveWoofsToCookies(woofsData)
+    saveWoofsToCookies(woofsData)
 
-  return woofsData;
+    return woofsData;
 }
 
 export { fetchWoofs, fetchProducts }

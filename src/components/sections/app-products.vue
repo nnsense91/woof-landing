@@ -2,7 +2,11 @@
     <section class="products">
         <div class="container">
             <ul class="products__list">
-                <li v-for="(product, index) in products" :key="product.id" class="products__item">
+                <li
+                    v-for="(product, index) in products"
+                    :key="product.id"
+                    class="products__item"
+                >
                     <app-product
                         :product="product"
                         :top="index === 0"
@@ -21,9 +25,9 @@ import { TProduct } from "../../models";
 import AppProduct from "@components/blocks/app-product.vue";
 
 @Component({
-     components: {
-         AppProduct
-     }
+    components: {
+        AppProduct
+    }
 })
 export default class AppProducts extends Vue {
     @Prop() readonly products!: TProduct[]

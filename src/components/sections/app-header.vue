@@ -1,7 +1,10 @@
 <template>
     <header class="header">
         <div class="container container--header">
-            <div v-if="isShowControls" class="header__content">
+            <div
+                v-if="isShowControls"
+                class="header__content"
+            >
                 <app-logo />
                 <app-update-button />
             </div>

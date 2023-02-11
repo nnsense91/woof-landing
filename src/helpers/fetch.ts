@@ -1,14 +1,14 @@
-export const fetchData = async (url: string, method: string = "GET"): Promise<unknown> => {
-  try {
-    const response = await fetch(url, {
-      method
-    });
+export const fetchData = async (url: string, method = "GET"): Promise<unknown> => {
+    try {
+        const response = await fetch(url, {
+            method
+        });
 
-    if (response.ok) {
-      return await response.json();
+        if (response.ok) {
+            return await response.json();
+        }
+    } catch (e) {
+        console.error(e); // some error handling
+        throw new Error('Something went wrong');
     }
-  } catch (e) {
-    console.error(e); // some error handling
-    throw new Error('Something went wrong');
-  }
 };

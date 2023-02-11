@@ -1,9 +1,16 @@
 <template>
     <main class="main">
-        <app-header :isShowControls="showControlsState"/>
-        <app-slider v-if="woofs.length && !isWoofsLoading" :woofs="woofs" @slidesCountChanged="setNeedToShowControls"/>
+        <app-header :is-show-controls="showControlsState" />
+        <app-slider
+            v-if="woofs.length && !isWoofsLoading"
+            :woofs="woofs"
+            @slidesCountChanged="setNeedToShowControls"
+        />
         <app-loader v-if="isWoofsLoading" />
-        <app-products v-if="products.length && !isProductsLoading" :products="products" />
+        <app-products
+            v-if="products.length && !isProductsLoading"
+            :products="products"
+        />
         <app-loader v-if="isProductsLoading" />
     </main>
 </template>
@@ -25,7 +32,7 @@ import {getProductsFromLs} from "./helpers/localStorage";
         AppProducts,
         AppSlider,
         AppLoader
-    },
+    }
 })
 export default class App extends Vue {
     products: TProduct[] = [];

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "eslint": "eslint src --max-warnings=0 --ext .js,.ts,.vue"
   },
   "dependencies": {
     "js-cookie": "^3.0.1",
@@ -18,7 +19,11 @@
   "devDependencies": {
     "@types/js-cookie": "^3.0.2",
     "@types/node": "^18.11.19",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
     "@vitejs/plugin-vue2": "^2.2.0",
+    "eslint": "^8.34.0",
+    "eslint-plugin-vue": "^9.9.0",
     "sass": "^1.58.0",
     "typescript": "^4.9.3",
     "vite": "^4.1.0",
