@@ -6,6 +6,7 @@ import { setProductsToLs } from "../helpers/localStorage";
 
 const API_PRODUCTS_URL = "https://dummyjson.com/products";
 const API_WOOF_URL = "https://random.dog/woof.json";
+const DEFAULT_WOOF_SLIDES = 10;
 
 
 
@@ -38,7 +39,7 @@ const fetchWoof = async (): Promise<TWoof> => {
 }
 
 
-const fetchWoofs = async (count = 10): Promise<string[]> => {
+const fetchWoofs = async (count = DEFAULT_WOOF_SLIDES): Promise<TWoof[]> => {
   const arrFromCookies = getWoofsFromCookies();
 
   if (arrFromCookies) return arrFromCookies;

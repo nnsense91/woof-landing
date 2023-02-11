@@ -25,32 +25,37 @@ section {
 .container {
   margin: 0 auto;
   height: 100%;
-  width: 74%;
+  width: 70%;
   max-width: 100%;
 
 
   @include wide-desktop {
-    width: 95%;
+    width: 71.3%;
     max-width: calc($wide-desktop - 2*267px);
   }
 
   @include middle-desktop {
+    width: 88.4%;
     max-width: calc($middle-desktop - 2*75px);
   }
 
   @include small-desktop {
+    width: 90%;
     max-width: calc($small-desktop - 2*43px);
   }
 
   @include wide-tablet {
+    width: 85.8%;
     max-width: calc($wide-tablet - 2*59px);
   }
 
   @include middle-tablet {
+    width: 94.6%;
     max-width: calc($middle-tablet - 2*9px);
   }
 
   @include small-tablet {
+    width: 86.56%;
     max-width: calc($small-tablet - 2*43px);
   }
 

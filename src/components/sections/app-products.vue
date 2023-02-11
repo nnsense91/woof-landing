@@ -55,9 +55,34 @@ export default class AppProducts extends Vue {
         }
 
         &__item {
-            height: 378px;
+            min-height: 378px;
             padding: 8px;
             border: 1px solid $color-grey;
+
+            @include middle-desktop {
+                min-height: 350px;
+            }
+            @include small-desktop {
+                min-height: 322px;
+            }
+            @include wide-tablet {
+                min-height: 329px;
+            }
+            @include middle-tablet {
+                min-height: 294px;
+            }
+            @include small-tablet {
+                min-height: 366px;
+            }
+            @include wide-phone {
+                min-height: 412px;
+            }
+            @include middle-phone {
+                min-height: 324px;
+            }
+            @include small-phone {
+                min-height: 276px;
+            }
         }
     }
 </style>

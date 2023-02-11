@@ -1,7 +1,7 @@
 <template>
     <main class="main">
         <app-header :isShowControls="showControlsState"/>
-        <app-slider v-if="woofs.length && !isWoofsLoading" :woofs="woofs" @slidesCountChanged="setNeedToControls"/>
+        <app-slider v-if="woofs.length && !isWoofsLoading" :woofs="woofs" @slidesCountChanged="setNeedToShowControls"/>
         <app-loader v-if="isWoofsLoading" />
         <app-products v-if="products.length && !isProductsLoading" :products="products" />
         <app-loader v-if="isProductsLoading" />
@@ -13,7 +13,7 @@ import { Vue, Component, Provide } from 'vue-property-decorator'
 
 import AppHeader from "@components/sections/app-header.vue";
 import AppProducts from "@components/sections/app-products.vue";
-import AppSlider from "@components/blocks/app-slider.vue";
+import AppSlider from "@components/sections/app-slider.vue";
 import AppLoader from "@components/blocks/app-loader.vue";
 import { fetchProducts, fetchWoofs } from "./api";
 import { TProduct, TWoof } from "./models";
@@ -37,27 +37,38 @@ export default class App extends Vue {
     @Provide() getProductsFn = this.getProducts
     
 
-    public async getProducts(): Promise<void> {
+    private async getProducts(): Promise<void> {
         const productsFromLs = getProductsFromLs();
 
         if (productsFromLs) {
             this.products = productsFromLs;
 
-            return
+            return;
         }
-        this.isProductsLoading = true;
-        this.products = await fetchProducts(100);
-        this.isProductsLoading = false;
+
+        try {
+            this.isProductsLoading = true;
+            this.products = await fetchProducts(100);
+        } catch (e) {
+            throw new Error("failed to load products");
+        } finally {
+            this.isProductsLoading = false;
+        }
     }
 
     private async fetchWoof(): Promise<void> {
-        this.isWoofsLoading = true;
-        this.woofs = await fetchWoofs();
-        this.isWoofsLoading = false;
+        try {
+            this.isWoofsLoading = true;
+            this.woofs = await fetchWoofs();
+        } catch (e) {
+            throw new Error("failed to load slides")
+        } finally {
+            this.isWoofsLoading = false;
+        }
     }
 
-    public setNeedToControls(slides: number) {
-        this.showControlsState = slides === 1 ? false : true;
+    public setNeedToShowControls(slides: number) {
+        this.showControlsState = slides !== 1;
     }
 
     private created() {

@@ -2,8 +2,8 @@
     <header class="header">
         <div class="container container--header">
             <div v-if="isShowControls" class="header__content">
-                <AppLogo />
-                <AppUpdateButton />
+                <app-logo />
+                <app-update-button />
             </div>
         </div>
     </header>
