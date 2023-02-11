@@ -25,6 +25,26 @@ export default class AppLogo extends Vue {}
         justify-content: center;
         align-items: center;
 
+        @include middle-desktop {
+            width: 22px;
+            height: 22px;
+        }
+
+        @include small-desktop {
+            width: 24px;
+            height: 24px;
+        }
+
+        @include wide-tablet {
+            width: 26px;
+            height: 26px;
+        }
+
+        @include wide-phone {
+            width: 28px;
+            height: 28px;
+        }
+
         &__link {
             display: flex;
             justify-content: center;

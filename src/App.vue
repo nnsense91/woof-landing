@@ -1,8 +1,10 @@
 <template>
     <main class="main">
         <app-header :isShowControls="showControlsState"/>
-        <app-slider :woofs="woofs" @slidesCountChanged="setNeedToControls"/>
-        <app-products :products="products" />
+        <app-slider v-if="woofs.length && !isWoofsLoading" :woofs="woofs" @slidesCountChanged="setNeedToControls"/>
+        <app-loader v-if="isWoofsLoading" />
+        <app-products v-if="products.length && !isProductsLoading" :products="products" />
+        <app-loader v-if="isProductsLoading" />
     </main>
 </template>
 
@@ -12,6 +14,7 @@ import { Vue, Component, Provide } from 'vue-property-decorator'
 import AppHeader from "@components/sections/app-header.vue";
 import AppProducts from "@components/sections/app-products.vue";
 import AppSlider from "@components/blocks/app-slider.vue";
+import AppLoader from "@components/blocks/app-loader.vue";
 import { fetchProducts, fetchWoofs } from "./api";
 import { TProduct, TWoof } from "./models";
 import {getProductsFromLs} from "./helpers/localStorage";
@@ -20,13 +23,16 @@ import {getProductsFromLs} from "./helpers/localStorage";
     components: {
         AppHeader,
         AppProducts,
-        AppSlider
+        AppSlider,
+        AppLoader
     },
 })
 export default class App extends Vue {
     products: TProduct[] = [];
     woofs: TWoof[] = []
     showControlsState = true;
+    isWoofsLoading = false;
+    isProductsLoading = false;
     
     @Provide() getProductsFn = this.getProducts
     
@@ -39,11 +45,15 @@ export default class App extends Vue {
 
             return
         }
+        this.isProductsLoading = true;
         this.products = await fetchProducts(100);
+        this.isProductsLoading = false;
     }
 
     private async fetchWoof(): Promise<void> {
+        this.isWoofsLoading = true;
         this.woofs = await fetchWoofs();
+        this.isWoofsLoading = false;
     }
 
     public setNeedToControls(slides: number) {

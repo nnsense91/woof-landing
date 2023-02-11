@@ -30,39 +30,40 @@ section {
 
 
   @include wide-desktop {
-    width: calc($wide-desktop - 2*267px);
+    width: 95%;
+    max-width: calc($wide-desktop - 2*267px);
   }
 
   @include middle-desktop {
-    width: calc($middle-desktop - 2*75px);
+    max-width: calc($middle-desktop - 2*75px);
   }
 
   @include small-desktop {
-    width: calc($small-desktop - 2*43px);
+    max-width: calc($small-desktop - 2*43px);
   }
 
   @include wide-tablet {
-    width: calc($wide-tablet - 2*59px);
+    max-width: calc($wide-tablet - 2*59px);
   }
 
   @include middle-tablet {
-    width: calc($middle-tablet - 2*9px);
+    max-width: calc($middle-tablet - 2*9px);
   }
 
   @include small-tablet {
-    width: calc($small-tablet - 2*43px);
+    max-width: calc($small-tablet - 2*43px);
   }
 
   @include wide-phone {
-    width: calc($wide-phone - 2*9px);
+    max-width: calc($wide-phone - 2*9px);
   }
 
   @include middle-phone {
-    width: calc($middle-phone - 2*25px);
+    max-width: calc($middle-phone - 2*25px);
   }
 
   @include small-phone {
-    width: calc($small-phone - 2*22px);
+    max-width: calc($small-phone - 2*22px);
   }
 }
 
