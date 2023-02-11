@@ -14,8 +14,8 @@
                    {{ product.category }}
                </li>
                <li class="product__description-item" :title="product.description">
-                   <span class="product__description-key">Description: </span>
-                   {{ product.description }}
+                    <span class="product__description-key">Description: </span>
+                    {{ product.description }}
                </li>
                <li class="product__description-item">
                    <span class="product__description-key">In stock: </span>
@@ -37,8 +37,9 @@ export default class AppProduct extends Vue {
     @Prop() readonly top!: boolean;
     @Prop() readonly sale!: boolean;
     @Prop() readonly popular!: boolean;
+    
 
-    private stock: TProduct["stock"] | null = null;
+    public stock: TProduct["stock"] | null = null;
     private interval: number | null = null;
 
     private decreaseStock() {
@@ -68,8 +69,8 @@ export default class AppProduct extends Vue {
     }
 
     @Watch("stock")
-    onStockChanged(prev: TProduct["stock"], next: TProduct["stock"]) {
-        if (next === 1 && this.interval) this.clearTimer()
+    onStockChanged(next: TProduct["stock"]) {
+        if (next < 1 && this.interval) this.clearTimer()
     }
 }
 </script>
@@ -125,7 +126,7 @@ export default class AppProduct extends Vue {
     &__description {
         margin-top: 9px;
 
-        &-item:not(:first-child) {
+        &-item {
             margin-top: 9px;
             -ms-text-overflow: ellipsis;
             -o-text-overflow: ellipsis;

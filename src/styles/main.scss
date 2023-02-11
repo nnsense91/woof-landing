@@ -25,7 +25,45 @@ section {
 .container {
   margin: 0 auto;
   height: 100%;
-  width: 1400px;
+  width: 74%;
+  max-width: 100%;
+
+
+  @include wide-desktop {
+    width: calc($wide-desktop - 2*267px);
+  }
+
+  @include middle-desktop {
+    width: calc($middle-desktop - 2*75px);
+  }
+
+  @include small-desktop {
+    width: calc($small-desktop - 2*43px);
+  }
+
+  @include wide-tablet {
+    width: calc($wide-tablet - 2*59px);
+  }
+
+  @include middle-tablet {
+    width: calc($middle-tablet - 2*9px);
+  }
+
+  @include small-tablet {
+    width: calc($small-tablet - 2*43px);
+  }
+
+  @include wide-phone {
+    width: calc($wide-phone - 2*9px);
+  }
+
+  @include middle-phone {
+    width: calc($middle-phone - 2*25px);
+  }
+
+  @include small-phone {
+    width: calc($small-phone - 2*22px);
+  }
 }
 
 .button {
@@ -34,7 +72,8 @@ section {
   cursor: pointer;
 }
 
-li, ul {
+li,
+ul {
   list-style: none;
   padding: 0;
   margin: 0;

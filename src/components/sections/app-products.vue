@@ -32,16 +32,29 @@ export default class AppProducts extends Vue {
 
 <style scoped lang="scss">
     .products {
-
         &__list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            row-gap: 24px;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(5rem, 1fr));
+            column-gap: 24px;
+            grid-row-gap: 1rem;
+
+            @include small-desktop {
+                column-gap: 16px;
+            }
+            @include wide-tablet {
+                grid-template-columns: repeat(3, minmax(5rem, 1fr));
+            }
+            @include small-tablet {
+                grid-template-columns: repeat(2, minmax(5rem, 1fr));
+            }
+            @include wide-phone {
+                grid-template-columns: repeat(1, minmax(5rem, 1fr));
+                column-gap: 8px;
+            }
+            
         }
 
         &__item {
-            max-width: calc(25% - 26px);
             height: 378px;
             padding: 8px;
             border: 1px solid $color-grey;

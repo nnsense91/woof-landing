@@ -1,7 +1,7 @@
 <template>
     <main class="main">
-        <app-header />
-        <app-slider :woofs="woofs"/>
+        <app-header :isShowControls="showControlsState"/>
+        <app-slider :woofs="woofs" @slidesCountChanged="setNeedToControls"/>
         <app-products :products="products" />
     </main>
 </template>
@@ -24,9 +24,12 @@ import {getProductsFromLs} from "./helpers/localStorage";
     },
 })
 export default class App extends Vue {
-    @Provide() getProductsFn = this.getProducts
     products: TProduct[] = [];
     woofs: TWoof[] = []
+    showControlsState = true;
+    
+    @Provide() getProductsFn = this.getProducts
+    
 
     public async getProducts(): Promise<void> {
         const productsFromLs = getProductsFromLs();
@@ -39,8 +42,12 @@ export default class App extends Vue {
         this.products = await fetchProducts(100);
     }
 
-    public async fetchWoof(): Promise<void> {
+    private async fetchWoof(): Promise<void> {
         this.woofs = await fetchWoofs();
+    }
+
+    public setNeedToControls(slides: number) {
+        this.showControlsState = slides === 1 ? false : true;
     }
 
     private created() {

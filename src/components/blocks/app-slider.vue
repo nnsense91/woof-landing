@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Ref, Vue } from "vue-property-decorator";
+import { Component, Prop, Ref, Vue, Watch } from "vue-property-decorator";
 import Swiper, { Pagination, Navigation } from 'swiper'
 import AppWoof from "@components/blocks/app-woof.vue";
 import 'swiper/css'
@@ -35,21 +35,29 @@ import { TWoof } from "../../models";
     components: {
         Swiper,
         AppWoof
-    },
+    }
 })
 export default class AppSlider extends Vue {
     @Prop() readonly woofs!: TWoof[];
     @Ref() readonly swiper!: HTMLDivElement;
-    activeIndex = 0
+    activeIndex = 0;
+    mySwiper: null | Swiper = null;
+
+    get slidesOnScreen() {
+        return this.mySwiper?.params.slidesPerView;
+    }
 
     mounted() {
-        new Swiper(this.swiper, {
+        this.mySwiper = new Swiper(this.swiper, {
             modules: [Pagination, Navigation],
-            spaceBetween: 37,
-            slidesPerView: 3,
+            spaceBetween: 30,
+            slidesPerView: 1,
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
+            },
+            breakpoints: {
+                744: { slidesPerView: 3 }
             },
             navigation: {
                 nextEl: '.swiper-button-next',
@@ -61,6 +69,11 @@ export default class AppSlider extends Vue {
                 },
             },
         })
+    }
+
+    @Watch("slidesOnScreen")
+    onStockChanged(next: number) {
+        this.$emit('slidesCountChanged', next);
     }
 }
 </script>

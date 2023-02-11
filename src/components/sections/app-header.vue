@@ -1,7 +1,7 @@
 <template>
     <header class="header">
         <div class="container container--header">
-            <div class="header__content">
+            <div v-if="isShowControls" class="header__content">
                 <AppLogo />
                 <AppUpdateButton />
             </div>
@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator"
+import { Component, Vue, Prop } from "vue-property-decorator"
 import AppLogo from "@components/blocks/app-logo.vue";
 import AppUpdateButton from "@components/blocks/app-update-button.vue";
 
@@ -20,7 +20,9 @@ import AppUpdateButton from "@components/blocks/app-update-button.vue";
         AppUpdateButton
     }
 })
-export default class AppHeader extends Vue {}
+export default class AppHeader extends Vue {
+    @Prop() readonly isShowControls!: boolean;
+}
 </script>
 
 <style scoped lang="scss">
